@@ -3,8 +3,8 @@
     <div>Name: {{this.asteroid.name}}</div>
     <div>Diameter: {{this.asteroid.minDiameter.toFixed(2)}} - {{this.asteroid.maxDiameter.toFixed(2)}}km</div>
     <div>Magnitude: {{this.asteroid.magnitude}}h</div>
-    <div>Distance: {{this.asteroid.distance}}au</div>
-    <div>Velocity: {{this.asteroid.velocity}}km/s</div>
+    <div>Distance: {{this.asteroid.distance.toFixed(4)}}au</div>
+    <div>Velocity: {{this.asteroid.velocity.toFixed(2)}}km/s</div>
   </div>
 </template>
 

@@ -14,7 +14,9 @@
         </defs>
 
         <g transform="translate(15, 15)">
-          <transition-group name="modal" tag="g">
+          <transition-group name="modal" tag="g"
+            :transform="`translate(${this.chartPadding}, ${this.chartPadding})`">
+
             <g class="g-asteroid"
               :transform="'translate(' + scaleX(asteroid.velocity) + ',' + scaleY(asteroid.distance) + ')'"
               v-for="asteroid in this.asteroids" :key="asteroid.id"
@@ -29,6 +31,7 @@
                 :r="scaleR(asteroid.minDiameter)"></circle>
 
             </g>
+            
           </transition-group>
 
           <g class="axes" :transform="`translate(0,${this.svg.height - this.svgPadding - this.chartPadding})`">
@@ -82,10 +85,14 @@ export default {
   },
   methods: {
     scaleX (velocity) {
-      return (this.svg.width - this.svgPadding - this.chartPadding*2) * (velocity/this.fastestAsteroid.velocity)
+      const scaleWidth = this.svg.width - this.svgPadding - this.chartPadding*2
+      return (scaleWidth) * (velocity/this.fastestAsteroid.velocity)
     },
     scaleY (distance) {
-      return (this.svg.height - this.svgPadding - this.chartPadding*2) - (this.svg.height - this.svgPadding - this.chartPadding*2) * (distance/this.farthestAsteroid.distance)
+      const scaleHeight = this.svg.height - this.svgPadding - this.chartPadding*2
+      const val = (scaleHeight) - (scaleHeight) * (distance/this.farthestAsteroid.distance)
+      console.log(this.svg.height, '-',this.svgPadding, '-', this.chartPadding,'* 2 = ', scaleHeight, ', val = ', val)
+      return val
     },
     scaleR (diameter) {
       return (50) * (diameter/this.largestAsteroid.maxDiameter)
@@ -174,7 +181,7 @@ export default {
   .modal-leave-active { transition: all 350ms }
 
   .modal-enter,
-  .modal-leave-to { opacity: 0 }
+  .modal-leave-to { opacity: 0; }
 
   .modal-leave,
   .modal-enter-to { opacity: 1 }
